@@ -10,7 +10,7 @@ html, body {
     margin: 0;
 }
 
-#nav {
+body #nav {
     flex-grow: 0;
     height:40px;
     background-color:#323741;
@@ -25,12 +25,23 @@ body #divider {
     background-color: black;
 }
 
-#bottom {
+body #main {
     flex-grow: 2;
     background-color: white;
+
+    display:flex;
+    flex-direction: row;
 }
 
-#title {
+#main #noteMenu {
+    flex-grow: 1;
+}
+
+#main #noteDisplay {
+    flex-grow: 2;
+}
+
+#nav #title {
     flex-grow: 2;
 
     display: flex;
@@ -45,15 +56,16 @@ body #divider {
     -webkit-app-region: drag;
 }
 
-#title #quick {
+#nav #title #quick {
     color: white;
 }
 
-#title #note {
+#nav #title #note {
     color: #45C48B;
 }
 
-#quit-application-button {
+
+#nav #quit-application-button {
     flex-grow: 0;
     width: 40px;
     background-color: #F46042;
@@ -64,7 +76,7 @@ body #divider {
     justify-content: center;
 }
 
-#quit-application-button:hover {
+#nav #quit-application-button:hover {
     background-color: #FF8246;
     cursor: pointer;
 }
