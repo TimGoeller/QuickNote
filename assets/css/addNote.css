@@ -61,6 +61,51 @@ body #note-content {
 body #note-options {
     flex-grow: 0;
 
-    height: 60px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    height: 40px;
     background-color:#323741;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
+
+#note-options div {
+    width: 100px;
+    flex-shrink: 0;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Slabo 27px', serif;
+    font-weight: bold;
+    font-size:1.2em;
+    color: white;
+    letter-spacing: 1px;
+}
+
+#note-options #close-button {
+    background-color: #F46042;
+}
+
+#note-options #close-button:hover {
+    background-color: #FF8246;
+    cursor: pointer;
+}
+
+#note-options #save-button {
+    background-color: #45C48B;
+}
+
+#note-options #save-button:hover {
+    background-color: #46AD61;
+    cursor: pointer;
+}
+
+
