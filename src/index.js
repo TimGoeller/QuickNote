@@ -14,5 +14,5 @@ document.getElementById("addNoteButton").addEventListener('click', function addN
     win.loadURL('file://' + __dirname + '/addNote.html');
 
     win.show();
-    win.openDevTools();
+    //win.openDevTools();
 })

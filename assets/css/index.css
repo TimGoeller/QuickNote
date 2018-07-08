@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 @import url('https://fonts.googleapis.com/css?family=Slabo+27px');
 
-body {
-    display: flex;
-    flex-direction: column;
-}
-
 html, body {
     height: 100%;
     margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
 }
 
 /* NAV */

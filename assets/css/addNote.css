@@ -1,0 +1,26 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+#note-title {
+    flex-grow: 0;
+
+    height: 60px;
+    border-bottom: 1px solid black;
+}
+
+#note-content {
+    flex-grow: 1;
+}
+
+#note-options {
+    flex-grow: 0;
+
+    height: 60px;
+}
