@@ -12,7 +12,7 @@ document.getElementById("addNoteButton").addEventListener('click', function addN
     win.on('close', function() {win = null});
     
     win.loadURL('file://' + __dirname + '/addNote.html');
-
+    win.isResizable = false;
     win.show();
     //win.openDevTools();
 })
