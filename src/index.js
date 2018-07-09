@@ -4,6 +4,6 @@ document.getElementById("quit-application-button").addEventListener("click", fun
     ipcRenderer.send('close-application');
 })
 
-document.getElementById("addNoteButton").addEventListener('click', function addNoteButtonListener() {
-    ipcRenderer.send('open-notedit-window', null)
+document.getElementById("add-note-button").addEventListener('click', function addNoteButtonListener() {
+    ipcRenderer.send('open-noteedit-window', null)
 })

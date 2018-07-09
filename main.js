@@ -50,13 +50,41 @@ const shell = require('electron').shell
   // In this file you can include the rest of your app's specific main process
   // code. You can also put them in separate files and require them here
 
-  let storedNotes = {};
+  var noteManager = (function noteManagerIIFE() {
+      var storedNotes = new Map();
 
-  function Note(title, text, creationDate) {
-    this.title = title;
-    this.text = text;
-    this.creationDate = creationDate;
-  }
+      function Note(title, text, creationDate) {
+        this.title = title;
+        this.text = text;
+        this.creationDate = creationDate;
+        this.id;
+      }
+
+      function storeNewNote(note) {
+        note.id = obtainHighestIDFromNotes() + 1;
+        storedNotes.set(note.id, note);
+
+        return note.id;
+      }
+
+      function obtainHighestIDFromNotes() {
+        let highestID = 0;
+
+        for (var id of storedNotes.keys()) {
+          if(id > highestID) {
+            highestID = id;
+          }
+        }
+
+        return highestID;
+      }
+    
+      return {
+        Note: Note,
+        storeNewNote: storeNewNote
+      }
+
+  })();
 
   let createNoteWin
 
@@ -71,7 +99,7 @@ const shell = require('electron').shell
     win.close()     
   })
 
-  ipcMain.on('open-notedit-window', function newNoteWindowIPC(event, arg) {  
+  ipcMain.on('open-noteedit-window', function newNoteWindowIPC(event, arg) {  
     if(createNoteWin === undefined) {
       createNoteEditWindow()
     }
@@ -79,5 +107,7 @@ const shell = require('electron').shell
       createNoteWin.show()
     } 
   })
+
+  ipcMain.on('close-note')
 
   

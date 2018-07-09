@@ -80,7 +80,7 @@ body #main {
     flex-direction: row;
 }
 
-#main #noteMenu {
+#main #note-menu {
     flex-grow: 0;
     flex-shrink: 1;
 
@@ -92,7 +92,7 @@ body #main {
     flex-shrink: 0;
 }
 
-#noteMenu #addNoteButton{
+#note-menu #add-note-button{
     display:flex;
     flex-direction: row;
     align-items: center;
@@ -105,16 +105,16 @@ body #main {
     cursor: default;
 }
 
-#noteMenu #addNoteButton:hover {
+#note-menu #add-note-button:hover {
     background-color: #0ADEEB;
     cursor: pointer;
 }
 
-#addNoteButton i {
+#add-note-button i {
     margin-left: 15px;
 }
 
-#addNoteButton span {
+#add-note-button span {
     margin-left: 15px;
     font-size: 1.5em;
 
@@ -125,6 +125,6 @@ body #main {
     cursor: default;
 }
 
-#addNoteButton span:hover {
+#add-note-button span:hover {
     cursor: pointer;
 }
