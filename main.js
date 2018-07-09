@@ -50,6 +50,14 @@ const shell = require('electron').shell
   // In this file you can include the rest of your app's specific main process
   // code. You can also put them in separate files and require them here
 
+  let storedNotes = {};
+
+  function Note(title, text, creationDate) {
+    this.title = title;
+    this.text = text;
+    this.creationDate = creationDate;
+  }
+
   let createNoteWin
 
   function createNoteEditWindow() {
@@ -69,7 +77,7 @@ const shell = require('electron').shell
     }
     if(arg === null) {
       createNoteWin.show()
-    }        
+    } 
   })
 
   
