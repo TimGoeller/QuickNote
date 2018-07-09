@@ -1,4 +1,4 @@
-const {app, BrowserWindow, Menu} = require('electron')
+const {app, BrowserWindow, Menu, ipcMain} = require('electron')
 const shell = require('electron').shell
 
   // Keep a global reference of the window object, if you don't, the window will
@@ -13,7 +13,7 @@ const shell = require('electron').shell
     win.loadFile('src/index.html')
   
     // Open the DevTools.
-    win.webContents.openDevTools()
+    //win.webContents.openDevTools()
   
     // Emitted when the window is closed.
     win.on('closed', () => {
@@ -49,3 +49,27 @@ const shell = require('electron').shell
   
   // In this file you can include the rest of your app's specific main process
   // code. You can also put them in separate files and require them here
+
+  let createNoteWin
+
+  function createNoteEditWindow() {
+    createNoteWin = new BrowserWindow({ parent:win, modal: true, width: 350, height: 500 , frame: false, show: false})
+    createNoteWin.on('close', function() {win = null})
+    createNoteWin.loadFile('src/addNote.html')
+    createNoteWin.isResizable = false
+  }
+
+  ipcMain.on('close-application', function closeApplicationIPC(event, arg) {  
+    win.close()     
+  })
+
+  ipcMain.on('open-notedit-window', function newNoteWindowIPC(event, arg) {  
+    if(createNoteWin === undefined) {
+      createNoteEditWindow()
+    }
+    if(arg === null) {
+      createNoteWin.show()
+    }        
+  })
+
+  
