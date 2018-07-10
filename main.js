@@ -3,24 +3,24 @@ const shell = require('electron').shell
 
   // Keep a global reference of the window object, if you don't, the window will
   // be closed automatically when the JavaScript object is garbage collected.
-  let win
+  let mainWin = null
   
   function createWindow () {
     // Create the browser window.
-    win = new BrowserWindow({width: 800, height: 600, frame:false})
+    mainWin = new BrowserWindow({width: 800, height: 600, frame:false})
   
     // and load the index.html of the app.
-    win.loadFile('src/index.html')
+    mainWin.loadFile('src/index.html')
   
     // Open the DevTools.
-    //win.webContents.openDevTools()
+    //mainWin.webContents.openDevTools()
   
     // Emitted when the window is closed.
-    win.on('closed', () => {
+    mainWin.on('closed', () => {
       // Dereference the window object, usually you would store windows
       // in an array if your app supports multi windows, this is the time
       // when you should delete the corresponding element.
-      win = null
+      mainWin = null
     })
 
   }
@@ -42,7 +42,7 @@ const shell = require('electron').shell
   app.on('activate', () => {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
-    if (win === null) {
+    if (mainWin === null) {
       createWindow()
     }
   })
@@ -63,6 +63,8 @@ const shell = require('electron').shell
       function storeNewNote(note) {
         note.id = obtainHighestIDFromNotes() + 1;
         storedNotes.set(note.id, note);
+
+        mainWin.webContents.send('attach-new-note', note);
 
         return note.id;
       }
@@ -89,25 +91,37 @@ const shell = require('electron').shell
   let createNoteWin
 
   function createNoteEditWindow() {
-    createNoteWin = new BrowserWindow({ parent:win, modal: true, width: 350, height: 500 , frame: false, show: false})
-    createNoteWin.on('close', function() {win = null})
+    createNoteWin = new BrowserWindow({ parent:mainWin, modal: true, width: 350, height: 500 , frame: false, show: false})
+    createNoteWin.on('close', function() {mainWin = null})
     createNoteWin.loadFile('src/addNote.html')
     createNoteWin.isResizable = false
+    //createNoteWin.webContents.openDevTools();
   }
 
   ipcMain.on('close-application', function closeApplicationIPC(event, arg) {  
-    win.close()     
+    app.quit();     
   })
 
   ipcMain.on('open-noteedit-window', function newNoteWindowIPC(event, arg) {  
-    if(createNoteWin === undefined) {
-      createNoteEditWindow()
-    }
-    if(arg === null) {
+    createNoteEditWindow()
+    if(arg === undefined) {
       createNoteWin.show()
     } 
   })
 
-  ipcMain.on('close-note')
+  ipcMain.on('close-noteedit-window', function closeNoteeditWindowIPC(event, arg) {
+    let winTemp = mainWin //Weird error, _mainWin_ is null after close() call
+    createNoteWin.close()
+    mainWin = winTemp
+  })
+
+  ipcMain.on('store-note', function storeNoteIPC(event, arg) {
+    if(arg.id === undefined) { //New note is created
+      noteManager.storeNewNote(new noteManager.Note(arg.title, arg.text, new Date()))
+    }
+    let winTemp = mainWin
+    createNoteWin.close()
+    mainWin = winTemp
+  })
 
   
