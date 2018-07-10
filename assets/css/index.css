@@ -132,5 +132,40 @@ body #main {
     flex-shrink: 0;
 
     overflow-y: scroll;
+}
 
+#note-sidebar #note-entry{
+    height: 50px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#note-entry #note-title {
+    flex-grow: 2;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+}
+
+#note-title p {
+    font-family: 'Slabo 27px', serif;
+    font-size:1.3em;
+
+    width: 180px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#note-entry #note-options {
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    height:100%;
+    width: 50px;
 }
