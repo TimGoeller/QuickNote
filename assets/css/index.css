@@ -1,11 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
-@import url('https://fonts.googleapis.com/css?family=Slabo+27px');
-
-html, body {
-    height: 100%;
-    margin: 0;
-}
-
 body {
     display: flex;
     flex-direction: column;
@@ -84,7 +76,12 @@ body #main {
     flex-grow: 0;
     flex-shrink: 1;
 
+    display:flex;
+    flex-direction: column;
+
     width: 250px;
+
+    border-right: 1px solid black;
 }
 
 #main #noteDisplay {
@@ -97,6 +94,7 @@ body #main {
     flex-direction: row;
     align-items: center;
 
+    flex-shrink: 0;
     height:50px;
     background-color: #08B3BD;
 
@@ -127,4 +125,12 @@ body #main {
 
 #add-note-button span:hover {
     cursor: pointer;
+}
+
+#note-menu #note-sidebar {
+    flex-grow: 2;
+    flex-shrink: 0;
+
+    overflow-y: scroll;
+
 }

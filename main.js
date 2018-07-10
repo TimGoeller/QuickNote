@@ -92,7 +92,7 @@ const shell = require('electron').shell
 
   function createNoteEditWindow() {
     createNoteWin = new BrowserWindow({ parent:mainWin, modal: true, width: 350, height: 500 , frame: false, show: false})
-    createNoteWin.on('close', function() {mainWin = null})
+    createNoteWin.on('close', function() {createNoteWin = null})
     createNoteWin.loadFile('src/addNote.html')
     createNoteWin.isResizable = false
     //createNoteWin.webContents.openDevTools();
@@ -110,18 +110,15 @@ const shell = require('electron').shell
   })
 
   ipcMain.on('close-noteedit-window', function closeNoteeditWindowIPC(event, arg) {
-    let winTemp = mainWin //Weird error, _mainWin_ is null after close() call
+    
     createNoteWin.close()
-    mainWin = winTemp
   })
 
   ipcMain.on('store-note', function storeNoteIPC(event, arg) {
     if(arg.id === undefined) { //New note is created
       noteManager.storeNewNote(new noteManager.Note(arg.title, arg.text, new Date()))
     }
-    let winTemp = mainWin
     createNoteWin.close()
-    mainWin = winTemp
   })
 
   

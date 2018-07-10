@@ -11,5 +11,5 @@ document.getElementById("add-note-button").addEventListener('click', function ad
 ipcRenderer.on('attach-new-note', function attachNewNoteIPC(event, arg) {
     let p = document.createElement("p")
     p.innerHTML = arg.title
-    document.getElementById('note-display').appendChild(p)
+    document.getElementById('note-sidebar').appendChild(p)
 })
