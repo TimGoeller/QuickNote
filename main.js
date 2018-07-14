@@ -13,7 +13,7 @@ const shell = require('electron').shell
     mainWin.loadFile('src/index.html')
   
     // Open the DevTools.
-    //mainWin.webContents.openDevTools()
+    mainWin.webContents.openDevTools()
   
     // Emitted when the window is closed.
     mainWin.on('closed', () => {
@@ -88,14 +88,14 @@ const shell = require('electron').shell
 
   })();
 
-  let createNoteWin
+  let addNoteWin
 
   function createNoteEditWindow() {
-    createNoteWin = new BrowserWindow({ parent:mainWin, modal: true, width: 350, height: 500 , frame: false, show: false})
-    createNoteWin.on('close', function() {createNoteWin = null})
-    createNoteWin.loadFile('src/addNote.html')
-    createNoteWin.isResizable = false
-    //createNoteWin.webContents.openDevTools();
+    addNoteWin = new BrowserWindow({ parent:mainWin, modal: true, width: 350, height: 500 , frame: false, show: false})
+    addNoteWin.on('close', function() {addNoteWin = null})
+    addNoteWin.loadFile('src/addNote.html')
+    addNoteWin.isResizable = false
+    //addNoteWin.webContents.openDevTools();
   }
 
   ipcMain.on('close-application', function closeApplicationIPC(event, arg) {  
@@ -105,20 +105,30 @@ const shell = require('electron').shell
   ipcMain.on('open-noteedit-window', function newNoteWindowIPC(event, arg) {  
     createNoteEditWindow()
     if(arg === undefined) {
-      createNoteWin.show()
+      addNoteWin.show()
     } 
   })
 
-  ipcMain.on('close-noteedit-window', function closeNoteeditWindowIPC(event, arg) {
-    
-    createNoteWin.close()
+  ipcMain.on('close-noteedit-window', function closeNoteeditWindowIPC(event, arg) {   
+    addNoteWin.close()
   })
 
   ipcMain.on('store-note', function storeNoteIPC(event, arg) {
     if(arg.id === undefined) { //New note is created
       noteManager.storeNewNote(new noteManager.Note(arg.title, arg.text, new Date()))
     }
-    createNoteWin.close()
+    addNoteWin.close()
+  })
+
+  ipcMain.on('open-dev-tools', function openDevToolsIPC(event, arg) {
+    switch(arg) {
+      case 'main-window':
+      mainWin.webContents.toggleDevTools();
+      break;
+      case 'add-note-window':
+      addNoteWin.webContents.toggleDevTools();
+      break;
+    }
   })
 
   

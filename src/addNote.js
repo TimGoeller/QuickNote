@@ -13,3 +13,7 @@ document.getElementById('save-button').addEventListener('click', function saveBu
     }
     ipcRenderer.send('store-note', note)
 })
+
+Mousetrap.bind(['command+alt+d', 'ctrl+alt+d'], () => {
+    ipcRenderer.send('open-dev-tools', 'add-note-window') 
+})

@@ -1,4 +1,5 @@
 var ipcRenderer = require('electron').ipcRenderer;
+var Mousetrap = require('mousetrap');
 
 document.getElementById("quit-application-button").addEventListener("click", function quitAppButtonClickListener() {
     ipcRenderer.send('close-application')
@@ -24,4 +25,8 @@ ipcRenderer.on('attach-new-note', function attachNewNoteIPC(event, arg) {
     noteEntryDiv.appendChild(noteOptionsDiv);
 
     document.getElementById('note-sidebar').appendChild(noteEntryDiv)
+})
+
+Mousetrap.bind(['command+alt+d', 'ctrl+alt+d'], () => {
+     ipcRenderer.send('open-dev-tools', 'main-window') 
 })

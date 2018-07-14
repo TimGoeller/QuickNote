@@ -81,7 +81,7 @@ body #main {
 
     width: 250px;
 
-    border-right: 1px solid black;
+    border-right: 1px solid #BDBDBD;
 }
 
 #main #noteDisplay {
@@ -129,8 +129,7 @@ body #main {
 
 #note-menu #note-sidebar {
     flex-grow: 2;
-    flex-shrink: 0;
-
+    
     overflow-y: scroll;
 }
 

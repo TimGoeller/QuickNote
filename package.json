@@ -4,7 +4,8 @@
   "description": "",
   "main": "main.js",
   "dependencies": {
-    "electron": "^2.0.4"
+    "electron": "^2.0.4",
+    "mousetrap": "^1.6.2"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-pro": "^5.1.0"
