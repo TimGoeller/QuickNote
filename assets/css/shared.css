@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 @import url('https://fonts.googleapis.com/css?family=Slabo+27px');
 
+:root {
+    --main-dark-color: #323741;
+}
+
 html, body {
     height: 100%;
     margin: 0;
@@ -8,12 +12,14 @@ html, body {
 
 ::-webkit-scrollbar {
     width: 14px;
-    
+    border-left: 1px solid #BDBDBD;
+    border-top: 1px solid #BDBDBD;
+    border-bottom: 1px solid #BDBDBD;
 }
  
 ::-webkit-scrollbar-track {
     margin-top: 5px;
-    margin-bottom: 5px;   
+    margin-bottom: 5px;
 }
  
 ::-webkit-scrollbar-thumb {
@@ -26,5 +32,5 @@ html, body {
 ::-webkit-scrollbar-button {
     width: 0;
     height: 0;
-    display: none;
+    /*display: none;*/
 }
