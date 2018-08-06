@@ -49,6 +49,8 @@ body #note-content {
 
     padding: 10px;
     box-sizing: border-box;
+
+    overflow-y: scroll;
 }
 
 body #note-options {

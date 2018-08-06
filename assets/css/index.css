@@ -81,7 +81,7 @@ body #main {
 
     width: 250px;
 
-    border-right: 1px solid #BDBDBD;
+    border-right: 1px solid var(--main-dark-color);
 }
 
 #main #note-display {
@@ -203,4 +203,8 @@ body #main {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+}
+
+#note-display-content {
+    overflow-y: scroll;
 }
