@@ -21,6 +21,14 @@ ipcRenderer.on('attach-new-note', function attachNewNoteIPC(event, arg) {
     noteTitleDiv.appendChild(noteTitleParagraph);
     noteEntryDiv.appendChild(noteTitleDiv);
 
+    noteEntryDiv.addEventListener('click', function loadNote() {
+        let loadedNoteTitle = document.getElementById('note-display-title').querySelector('h1');
+        let noteDisplayContent = document.getElementById('note-display-content').querySelector('p');
+
+        loadedNoteTitle.innerHTML = arg.title;
+        noteDisplayContent.innerHTML = arg.text;
+    })
+
     document.getElementById('note-sidebar').appendChild(noteEntryDiv)
 })
 
