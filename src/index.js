@@ -35,3 +35,7 @@ ipcRenderer.on('attach-new-note', function attachNewNoteIPC(event, arg) {
 Mousetrap.bind(['command+alt+d', 'ctrl+alt+d'], () => {
      ipcRenderer.send('open-dev-tools', 'main-window') 
 })
+
+document.getElementById('edit-button').addEventListener('click', function openEditWindow() {
+    /*alert('Test');*/
+})
