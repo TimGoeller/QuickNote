@@ -52,6 +52,7 @@ const shell = require('electron').shell
 
   var noteManager = (function noteManagerIIFE() {
       var storedNotes = new Map();
+      var currentlyEditedNote;
 
       function Note(title, text, creationDate) {
         this.title = title;
@@ -83,7 +84,8 @@ const shell = require('electron').shell
     
       return {
         Note: Note,
-        storeNewNote: storeNewNote
+        storeNewNote: storeNewNote,
+        currentlySelectedNote: currentlyEditedNote
       }
 
   })();
@@ -102,11 +104,18 @@ const shell = require('electron').shell
     app.quit();     
   })
 
-  ipcMain.on('open-noteedit-window', function newNoteWindowIPC(event, arg) {  
+  ipcMain.on('open-noteedit-window', function newNoteWindowIPC(event, openedWithNewNoteButton) {  
     createNoteEditWindow()
-    if(arg === undefined) {
+    if(openedWithNewNoteButton === true) {
       addNoteWin.show()
     } 
+    else {
+      addNoteWin.show()
+        
+      addNoteWin.webContents.on('did-finish-load', () => {
+        addNoteWin.webContents.send('initialize-with-note', noteManager.currentlySelectedNote) 
+      })
+    }
   })
 
   ipcMain.on('close-noteedit-window', function closeNoteeditWindowIPC(event, arg) {   
@@ -114,9 +123,15 @@ const shell = require('electron').shell
   })
 
   ipcMain.on('store-note', function storeNoteIPC(event, arg) {
-    if(arg.id === undefined) { //New note is created
+    if(noteManager.currentlySelectedNote === undefined) { //New note is created
       noteManager.storeNewNote(new noteManager.Note(arg.title, arg.text, new Date()))
     }
+    else {
+      noteManager.currentlySelectedNote.text = arg.text
+      noteManager.currentlySelectedNote.title = arg.title
+      noteManager.currentlySelectedNote = undefined;
+    }
+
     addNoteWin.close()
   })
 
@@ -131,4 +146,8 @@ const shell = require('electron').shell
     }
   })
 
+  ipcMain.on('note-was-clicked', function noteWasClickedIPC(event, note) {
+    mainWin.webContents.send('update-note-view', note)
+    noteManager.currentlySelectedNote = note
+  })
   
